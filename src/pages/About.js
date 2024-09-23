@@ -41,8 +41,8 @@ const About = () => {
               <FaIndustry className='text-6xl mb-2' />
               <p className='text-xl'>Leading Manufacturer</p>
             </div>
-            <div className='flex flex-col items-center'>
-              <FaCertificate className='text-6xl mb-2' />
+            <div className='flex flex-col items-center '>
+              <FaCertificate className='text-6xl mb-2 ' />
               <p className='text-xl'>Quality Assurance</p>
             </div>
           </div>

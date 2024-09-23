@@ -10,6 +10,7 @@ import Navbar from  './Components/Navbar';
 import Home from './pages/Home';
 
 import Error from './pages/Error';
+import Chatbot from './Components/Chatbot';
 
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
       <Route path="*" element={<Error />} />
     </Routes>
    
-      {/* <Footer /> */}
+      {/* <Chatbot/> */}
+      <Chatbot/>
    </div>
   );
 }

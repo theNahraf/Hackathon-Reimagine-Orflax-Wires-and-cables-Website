@@ -10,12 +10,9 @@ import {
 const sections = [
   {
     title: "Solutions",
-    items: ["Marketing", "Analytics", "Commerce", "Data", "Cloud"],
+    items: ["Marketing", "Analytics", "Commerce", "Data"],
   },
-  {
-    title: "Support",
-    items: ["Pricing", "Documentation", "Guides", "API Status"],
-  },
+
   {
     title: "Company",
     items: ["About", "Blog", "Jobs", "Press", "Partners"],

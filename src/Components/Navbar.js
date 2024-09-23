@@ -1,9 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+    // Prevent scrolling when the menu is open
+    if (!menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  };
+
   return (
-    <nav className="bg-gray-900 mx-auto w-[90vw] rounded-full mt-7 h-[8vh] flex justify-between items-center px-4 sm:px-8 lg:px-16">
+    <nav className="bg-gray-900 mx-auto w-[90vw] rounded-full mt-7 h-[8vh] flex justify-between items-center px-4 sm:px-8 lg:px-16 z-10 relative">
       {/* Logo */}
       <div className="flex items-center">
         <img
@@ -13,7 +26,14 @@ const Navbar = () => {
         />
       </div>
 
-      {/* Navigation Links */}
+      {/* Hamburger Menu Icon */}
+      <div className="md:hidden flex items-center z-20">
+        <button onClick={toggleMenu} className="text-white text-2xl">
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+      </div>
+
+      {/* Navigation Links for larger screens */}
       <div className="hidden md:flex text-white items-center space-x-8 lg:space-x-14">
         <ul className="flex space-x-6 sm:space-x-8">
           {['Home', 'About', "Director's Page", 'Products', 'Gallery', 'Contact'].map((text, index) => (
@@ -33,8 +53,8 @@ const Navbar = () => {
         </ul>
       </div>
 
-      {/* Call Me Button */}
-      <div className="flex items-center">
+      {/* Call Me Button for larger screens */}
+      <div className="hidden md:flex items-center">
         <a href="tel:011-41523405" className="relative inline-block px-6 py-2 sm:px-8 sm:py-3 overflow-hidden font-bold rounded-full group">      
           <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
           <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
@@ -42,6 +62,41 @@ const Navbar = () => {
           <span className="absolute inset-0 border-2 border-white rounded-full"></span>
         </a>
       </div>
+
+      {/* Mobile Menu and Overlay */}
+      {menuOpen && (
+        <>
+          {/* Background overlay to cover content */}
+          <div className="fixed inset-0 bg-black bg-opacity-60 z-10"></div>
+
+          {/* Mobile Menu */}
+          <div className="fixed top-[8vh] left-0 w-full bg-gray-800 text-white flex flex-col items-center z-20">
+            <ul className="w-full text-center py-4 space-y-4">
+              {['Home', 'About', "Director's Page", 'Products', 'Gallery', 'Contact'].map((text, index) => (
+                <li key={index} className="relative group">
+                  <Link
+                    to={text === 'Home' ? '/' : text === "Director's Page" ? '/director_page' : `/${text.toLowerCase().replace(' ', '_')}`}
+                    className="block px-4 py-2 rounded-lg hover:bg-gray-700"
+                    onClick={() => setMenuOpen(false)} // Close menu on click
+                  >
+                    {text}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* Call Me Button for mobile screens */}
+            <div className="flex items-center justify-center pb-4">
+              <a href="tel:011-41523405" className="relative inline-block px-6 py-2 sm:px-8 sm:py-3 overflow-hidden font-bold rounded-full group">      
+                <span className="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+                <span className="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
+                <span className="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-gray-900 flex items-center gap-3">Call Me</span>
+                <span className="absolute inset-0 border-2 border-white rounded-full"></span>
+              </a>
+            </div>
+          </div>
+        </>
+      )}
     </nav>
   );
 };

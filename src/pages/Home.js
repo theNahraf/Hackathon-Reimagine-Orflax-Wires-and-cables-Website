@@ -13,6 +13,7 @@ import wireroll from '../Images/pngwing.com.swf.png'
 import Footer from '../Components/Footer';
 
 
+
 const Home = () => {
   return (
     <div className='mt-9 h-[100vh] w-[100vw]'>
